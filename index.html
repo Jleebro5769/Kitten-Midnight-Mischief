@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitten: Midnight Mischief</title>
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: #e2e2e2;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #game-container {
+            background-color: #16213e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 { color: #0f3460; background: #e94560; padding: 10px; border-radius: 5px; }
+        #story-text { font-size: 18px; margin-bottom: 20px; line-height: 1.6; }
+        .btn {
+            background-color: #e94560;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+        .btn:hover { background-color: #ff6b81; }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <h1>🐾 Kitten: Midnight Mischief</h1>
+    <div id="story-text">The clock strikes midnight. You open your eyes. The humans are fast asleep. It is time for mischief. Where do you want to go?</div>
+    <div id="choices-container">
+        <button class="btn" onclick="goToKitchen()">Go to the Kitchen</button>
+        <button class="btn" onclick="goToLivingRoom()">Go to the Living Room</button>
+    </div>
+</div>
+
+<script>
+    const storyEl = document.getElementById('story-text');
+    const choicesEl = document.getElementById('choices-container');
+
+    function updateGame(text, choices) {
+        storyEl.innerText = text;
+        choicesEl.innerHTML = '';
+        choices.forEach(choice => {
+            const button = document.createElement('button');
+            button.className = 'btn';
+            button.innerText = choice.text;
+            button.onclick = choice.action;
+            choicesEl.appendChild(button);
+        });
+    }
+
+    function goToKitchen() {
+        updateGame(
+            "You sneak into the kitchen. On the counter, you spy a glass of water sitting dangerously close to the edge. What do you do?",
+            [
+                { text: "Knock it over!", action: winEnding },
+                { text: "Meow loudly for food", action: wakeHumans }
+            ]
+        );
+    }
+
+    function goToLivingRoom() {
+        updateGame(
+            "The living room is dark. You see the magnificent fabric couch. It looks perfect for scratching.",
+            [
+                { text: "Shred the couch!", action: scratchEnding },
+                { text: "Zoom around at midnight speed", action: wakeHumans }
+            ]
+        );
+    }
+
+    function winEnding() {
+        updateGame("CRASH! The water spills everywhere. Glorious success. You run away and hide under the bed, victorious!", []);
+    }
+
+    function scratchEnding() {
+        updateGame("Scratch scratch scratch! The couch fabric feels amazing. You have left your mark. Good job, kitten!", []);
+    }
+
+    function wakeHumans() {
+        updateGame("OH NO! You made too much noise. A human turns on the lights and yells 'Hey! Bad kitten!' You get scooped up and put in the bathroom. Busted!", []);
+    }
+</script>
+
+</body>
+</html>
