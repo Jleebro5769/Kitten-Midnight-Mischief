@@ -25,6 +25,17 @@
             text-align: center;
         }
         h1 { color: #0f3460; background: #e94560; padding: 10px; border-radius: 5px; }
+        
+        /* Style for the game image */
+        #game-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 2px solid #e94560;
+        }
+
         #story-text { font-size: 18px; margin-bottom: 20px; line-height: 1.6; }
         .btn {
             background-color: #e94560;
@@ -44,6 +55,9 @@
 
 <div id="game-container">
     <h1>🐾 Kitten: Midnight Mischief</h1>
+    
+    <img id="game-image" src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600" alt="Kitten">
+    
     <div id="story-text">The clock strikes midnight. You open your eyes. The humans are fast asleep. It is time for mischief. Where do you want to go?</div>
     <div id="choices-container">
         <button class="btn" onclick="goToKitchen()">Go to the Kitchen</button>
@@ -54,51 +68,7 @@
 <script>
     const storyEl = document.getElementById('story-text');
     const choicesEl = document.getElementById('choices-container');
+    const imageEl = document.getElementById('game-image'); // Connects to the image box
 
-    function updateGame(text, choices) {
-        storyEl.innerText = text;
-        choicesEl.innerHTML = '';
-        choices.forEach(choice => {
-            const button = document.createElement('button');
-            button.className = 'btn';
-            button.innerText = choice.text;
-            button.onclick = choice.action;
-            choicesEl.appendChild(button);
-        });
-    }
-
-    function goToKitchen() {
-        updateGame(
-            "You sneak into the kitchen. On the counter, you spy a glass of water sitting dangerously close to the edge. What do you do?",
-            [
-                { text: "Knock it over!", action: winEnding },
-                { text: "Meow loudly for food", action: wakeHumans }
-            ]
-        );
-    }
-
-    function goToLivingRoom() {
-        updateGame(
-            "The living room is dark. You see the magnificent fabric couch. It looks perfect for scratching.",
-            [
-                { text: "Shred the couch!", action: scratchEnding },
-                { text: "Zoom around at midnight speed", action: wakeHumans }
-            ]
-        );
-    }
-
-    function winEnding() {
-        updateGame("CRASH! The water spills everywhere. Glorious success. You run away and hide under the bed, victorious!", []);
-    }
-
-    function scratchEnding() {
-        updateGame("Scratch scratch scratch! The couch fabric feels amazing. You have left your mark. Good job, kitten!", []);
-    }
-
-    function wakeHumans() {
-        updateGame("OH NO! You made too much noise. A human turns on the lights and yells 'Hey! Bad kitten!' You get scooped up and put in the bathroom. Busted!", []);
-    }
-</script>
-
-</body>
-</html>
+    // Updated function to change text, choices, AND the image URL
+    function updateGame(text
